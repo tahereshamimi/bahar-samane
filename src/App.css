@@ -1,0 +1,44 @@
+.card-style {
+    background-color: darksalmon;
+    margin: 5px;
+    padding: 10px;
+    height: 200px;
+
+}
+
+.input-card {
+    background-color: khaki;
+}
+
+.gray-button {
+    background-color: gray;
+    border-radius: 5px;
+    padding: 3px;
+    width: 80px;
+    text-align: center;
+    float: right
+}
+
+.red-button {
+    background-color: red;
+    border-radius: 5px;
+    border-radius: 5px;
+    padding: 3px;
+    width: 80px;
+    text-align: center;
+    float: right
+}
+.save-button{
+    background-color:darkgreen;
+    color:white;
+    border-radius: 5px;
+    border-radius: 5px;
+    padding: 3px;
+    width: 5080pxx;
+    text-align: center;
+    float: right
+}
+.textarea{
+    
+    
+}
