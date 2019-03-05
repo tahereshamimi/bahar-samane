@@ -10,6 +10,23 @@ class Notes extends Component {
         importanceButton: 'gray-button',
     }
 
+    // save notes to local storage
+    componentDidMount() {
+          const json = localStorage.getItem('notes');
+          const notes = JSON.parse(json);
+          if (notes) {
+            this.setState(() => ({ notes }));
+          }
+      }
+      componentDidUpdate(prevProps, prevState) {
+        if (prevState.notes.length !== this.state.notes.length) {
+          const json = JSON.stringify(this.state.notes);
+          localStorage.setItem('notes', json);
+        }
+    }
+
+
+    // change color of importance button by clicking
     changeImportance = () => {
         this.setState({ importance: !this.state.importance });
         if (this.state.importance === true) {
@@ -18,9 +35,8 @@ class Notes extends Component {
         else {
             this.setState({ importanceButton: 'red-button' });
         }
-
-
     }
+    
 
     // in this part typed note are added to state, and save buttun visibility is checked
     addNote = (e) => {
@@ -37,12 +53,16 @@ class Notes extends Component {
     }
 
 
+    // submit inputing note
     onSubmit = (e) => {
         e.preventDefault();
         this.setState((prevState) => ({
             notes: prevState.notes.concat(this.state.note),
         }));
     }
+
+
+    // delete note by clicking on it
     deleteNote = (index) => {
         const notes = this.state.notes
         notes.splice(index, 1)
@@ -84,8 +104,6 @@ class Notes extends Component {
                         ))}
                     </Row>
                 </Container>
-
-
             </div>
         );
     }
