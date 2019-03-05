@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 
 class Notes extends Component {
     state = {
-        notes:[],
+        notes: [],
         note: '',
         importance: false,
         visibility: false,
         importanceButton: 'gray-button',
+        modal: false,
+        confirmDelete: false
     }
 
     changeImportance = () => {
@@ -31,7 +33,7 @@ class Notes extends Component {
             this.setState({ visibility: true })
         }
         this.setState({
-            note: e.target.value
+            note: e.target.value,
         })
 
     }
@@ -40,16 +42,35 @@ class Notes extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         this.setState((prevState) => ({
-            notes: prevState.notes.concat(this.state.note)
+            notes: prevState.notes.concat(this.state.note),
         }));
-        
-        console.log(this.state.notes)
+    }
+    deleteNote = (index) => {
+        if (this.state.confirmDelete) {
+            const notes = this.state.notes
+            notes.splice(index, 1)
+            this.setState({
+                notes,
+                confirmDelete: false
+            })
+        }
+        else{
+            this.toggleModal()
+        }
 
     }
-    deleteNote=(index)=>{
-        const notes = this.state.notes
-        notes.splice(index, 1)    
-        this.setState({notes})
+    confirmDelete = () => {
+        this.setState(() => ({
+            confirmDelete: true
+        })).then(this.deleteNote())
+        
+
+    }
+
+    toggleModal = () => {
+        this.setState((prevState) => ({
+            modal: !prevState.modal
+        }));
     }
 
     render() {
@@ -73,16 +94,28 @@ class Notes extends Component {
                     </Row>
 
                     <Row>
-                        {this.state.notes.map((note,index) => (
+                        {this.state.notes.map((note, index) => (
                             <Col md='6'>
-                                <div key={Date.now()} className="card-style" onClick={event=>this.deleteNote(index,event)}>
+                                <div key={Date.now} className="card-style position-relative" onClick={event => this.deleteNote(index, event)}>
                                     {note}
+                                    {this.state.importance ? <span className="position-absolute star ">*</span> : null}
+                                    
                                 </div>
                             </Col>
                         ))}
                     </Row>
                 </Container>
 
+                <Modal isOpen={this.state.modal} toggleModal={this.toggleModal} className="">
+                    <ModalHeader toggleModal={this.toggleModal}>Delete Note!!!</ModalHeader>
+                    <ModalBody>
+                        Are you sure ?
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="success" onClick={this.confirmDelete}>Delete</Button>
+                        <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
             </div>
         );
     }

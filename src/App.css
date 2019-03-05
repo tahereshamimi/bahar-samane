@@ -38,7 +38,9 @@
     text-align: center;
     float: right
 }
-.textarea{
-    
-    
+.star{
+    right: 10px;
+    top:0;
+    color:red;
+    font-size: 40px
 }

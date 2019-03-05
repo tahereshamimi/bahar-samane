@@ -5,7 +5,6 @@ import { Header, Notes } from './_components';
 
 class App extends Component {
 
-
   render() {
     return (
       <div >
@@ -21,10 +20,6 @@ class App extends Component {
             </Col>
           </Row>
         </Container>
-
-
-
-
       </div>
     );
   }
