@@ -20,8 +20,6 @@ class Notes extends Component {
         else {
             this.setState({ importanceButton: 'red-button' });
         }
-
-
     }
 
     // in this part typed note are added to state, and save buttun visibility is checked
@@ -35,7 +33,6 @@ class Notes extends Component {
         this.setState({
             note: e.target.value,
         })
-
     }
 
 
@@ -45,6 +42,8 @@ class Notes extends Component {
             notes: prevState.notes.concat(this.state.note),
         }));
     }
+
+
     deleteNote = (index) => {
         if (this.state.confirmDelete) {
             const notes = this.state.notes
@@ -58,10 +57,10 @@ class Notes extends Component {
         else{
             this.toggleModal()
         }
-
     }
+
+
     confirmDelete = () => {
-        
         this.setState(() => ({
             confirmDelete: true
         })).then(this.deleteNote())
