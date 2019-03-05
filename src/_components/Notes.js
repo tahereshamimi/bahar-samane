@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 class Notes extends Component {
     state = {
@@ -8,8 +8,6 @@ class Notes extends Component {
         importance: false,
         visibility: false,
         importanceButton: 'gray-button',
-        modal: false,
-        confirmDelete: false
     }
 
     changeImportance = () => {
@@ -46,32 +44,14 @@ class Notes extends Component {
         }));
     }
     deleteNote = (index) => {
-        if (this.state.confirmDelete) {
-            const notes = this.state.notes
-            notes.splice(index, 1)
-            this.setState({
-                notes,
-                confirmDelete: false,
-                modal:false
-            })
-        }
-        else{
-            this.toggleModal()
-        }
-
-    }
-    confirmDelete = () => {
-        
-        this.setState(() => ({
-            confirmDelete: true
-        })).then(this.deleteNote())
+        const notes = this.state.notes
+        notes.splice(index, 1)
+        this.setState({
+            notes,
+        })
     }
 
-    toggleModal = () => {
-        this.setState((prevState) => ({
-            modal:!prevState.modal
-        }));
-    }
+
 
     render() {
         return (
@@ -105,16 +85,7 @@ class Notes extends Component {
                     </Row>
                 </Container>
 
-                <Modal isOpen={this.state.modal} toggleModal={this.toggleModal} className="">
-                    <ModalHeader toggleModal={this.toggleModal}>Delete Note!!!</ModalHeader>
-                    <ModalBody>
-                        Are you sure ?
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="success" onClick={this.confirmDelete}>Delete</Button>
-                        <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
-                    </ModalFooter>
-                </Modal>
+
             </div>
         );
     }
