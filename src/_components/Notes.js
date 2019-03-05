@@ -51,7 +51,8 @@ class Notes extends Component {
             notes.splice(index, 1)
             this.setState({
                 notes,
-                confirmDelete: false
+                confirmDelete: false,
+                modal:false
             })
         }
         else{
@@ -60,16 +61,15 @@ class Notes extends Component {
 
     }
     confirmDelete = () => {
+        
         this.setState(() => ({
             confirmDelete: true
         })).then(this.deleteNote())
-        
-
     }
 
     toggleModal = () => {
         this.setState((prevState) => ({
-            modal: !prevState.modal
+            modal:!prevState.modal
         }));
     }
 
@@ -96,10 +96,9 @@ class Notes extends Component {
                     <Row>
                         {this.state.notes.map((note, index) => (
                             <Col md='6'>
-                                <div key={Date.now} className="card-style position-relative" onClick={event => this.deleteNote(index, event)}>
+                                <div key={Date.now} className="card-style position-relative shadow" onClick={event => this.deleteNote(index, event)}>
                                     {note}
                                     {this.state.importance ? <span className="position-absolute star ">*</span> : null}
-                                    
                                 </div>
                             </Col>
                         ))}

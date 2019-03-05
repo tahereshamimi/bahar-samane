@@ -1,13 +1,21 @@
+body{
+    /* min-width: 500px; */
+}
 .card-style {
     background-color: darksalmon;
     margin: 5px;
-    padding: 10px;
+    padding: 30px;
     height: 200px;
+    border-radius: 10px
 
+}
+.card-style:hover{
+    background-color: tomato;
 }
 
 .input-card {
     background-color: khaki;
+    border-radius: 10px
 }
 
 .gray-button {
