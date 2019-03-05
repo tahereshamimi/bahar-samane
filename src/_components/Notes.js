@@ -34,29 +34,25 @@ class Notes extends Component {
         this.setState({
             note: e.target.value
         })
+        
     }
+
+    
 
     onSubmit = (e) => {
-        if (this.state.note !== "") {
-            let note = this.state.note
-            this.setState(() => ({ note }));
-        
-            
-        }
-        e.preventDefault();
-    }
-
-    addNotes = (e) => {
         console.log('tata')
-        debugger
-        this.setState((prevState) => ({ 
-            notes:prevState.push(this.state.note)
-         }));
+        this.setState((prevState) => ({
+            notes:prevState.notes.push(this.state.note)
+        }));
+        console.log(this.state.notes)
+
+        e.preventDefault();
 
     }
 
     render() {
         const notes = this.state.notes;
+        
         const noteItem = notes.map((note) =>
             <Col  md='6' key={note.toString()}>
                 <div className="card-style">
@@ -81,7 +77,8 @@ class Notes extends Component {
                             <textarea className='textarea mt-3' name='note' placeholder="enter note" onChange={this.addNote} ></textarea>
                         </div>
                         <div>
-                            {this.state.visibility ? <span type='submit' className='save-button' onClick={this.addNotes}>save</span> : null}
+                            {/* {this.state.visibility ? <button type='submit' className='save-button' onClick={this.addNotes}>save</button> : null} */}
+                            {this.state.visibility ? <button type='submit' className='save-button'>save</button> : null}
                         </div>
                     </form>
                     </Row>
