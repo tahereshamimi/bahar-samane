@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-
+import uuidv1 from  'uuid/v1';
 class Notes extends Component {
     state = {
         notes: [],
@@ -70,7 +70,7 @@ class Notes extends Component {
             })
         }
         else{
-            this.toggleModal()
+            this.togglemodal()
         }
     }
 
@@ -78,14 +78,16 @@ class Notes extends Component {
     confirmDelete = () => {
         this.setState(() => ({
             confirmDelete: true
-        })).then(this.deleteNote())
+        })).then(console.log('hello'))
     }
 
-    toggleModal = () => {
+    togglemodal = () => {
         this.setState((prevState) => ({
             modal:!prevState.modal
         }));
     }
+
+    
 
     render() {
         return (
@@ -109,8 +111,8 @@ class Notes extends Component {
 
                     <Row>
                         {this.state.notes.map((note, index) => (
-                            <Col md='6'>
-                                <div key={Date.now} className="card-style position-relative shadow" onClick={event => this.deleteNote(index, event)}>
+                            <Col md='6' key={uuidv1()} >
+                                <div className="card-style position-relative shadow" onClick={event => this.deleteNote(index, event)}>
                                     {note}
                                     {this.state.importance ? <span className="position-absolute star ">*</span> : null}
                                 </div>
@@ -119,14 +121,14 @@ class Notes extends Component {
                     </Row>
                 </Container>
 
-                <Modal isOpen={this.state.modal} toggleModal={this.toggleModal} className="">
-                    <ModalHeader toggleModal={this.toggleModal}>Delete Note!!!</ModalHeader>
+                <Modal isOpen={this.state.modal} togglemodal={this.togglemodal} className="">
+                    <ModalHeader togglemodal={this.togglemodal}>Delete Note!!!</ModalHeader>
                     <ModalBody>
                         Are you sure ?
                     </ModalBody>
                     <ModalFooter>
                         <Button color="success" onClick={this.confirmDelete}>Delete</Button>
-                        <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+                        <Button color="secondary" onClick={this.togglemodal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
             </div>
