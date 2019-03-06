@@ -12,6 +12,21 @@ class Notes extends Component {
         confirmDelete: false
     }
 
+    // save notes to local storage
+    componentDidMount() {
+        const json = localStorage.getItem('notes');
+        const notes = JSON.parse(json);
+        if (notes) {
+          this.setState(() => ({ notes }));
+        }
+    }
+    componentDidUpdate(prevProps, prevState) {
+      if (prevState.notes.length !== this.state.notes.length) {
+        const json = JSON.stringify(this.state.notes);
+        localStorage.setItem('notes', json);
+      }
+  }
+
     changeImportance = () => {
         this.setState({ importance: !this.state.importance });
         if (this.state.importance === true) {
